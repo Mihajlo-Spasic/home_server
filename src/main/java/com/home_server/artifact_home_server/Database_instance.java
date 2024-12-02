@@ -1,4 +1,4 @@
-package com.home_server;
+package com.home_server.artifact_home_server;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,8 +14,8 @@ public class Database_instance {
   private String mysql_database_name = System.getenv("MYSQL_DATABASE_NAME");
   private String mysql_url = "jdbc:mysql://localhost:" + mysql_port + "/" + mysql_database_name; 
   
-  private String DB_USER;
-  private String DB_PASSWORD;
+  private String DB_USER = System.getenv("DB_USER");
+  private String DB_PASSWORD = System.getenv("DB_PASSWORD");
 
   
   private Database_instance() throws SQLException{

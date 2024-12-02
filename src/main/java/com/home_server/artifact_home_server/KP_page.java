@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class KP_page{
   
-  Database_instance database = new Database_instance();  
+  Database_instance database = Database_instance.getInstance();    
   
   @GetMapping("/kp")
   public String test(){
