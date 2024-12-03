@@ -25,6 +25,8 @@ public class KP_page{
     return "kp";
   }
 
+  @GetMapping
+  Public String 
   @PostMapping("/load_all_kp_advertisments")
   public String load_all_kp_advertisment() {
         System.out.println("load all adertisments called!");
