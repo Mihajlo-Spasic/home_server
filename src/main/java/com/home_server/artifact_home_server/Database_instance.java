@@ -13,10 +13,9 @@ public class Database_instance {
   private String mysql_port = System.getenv("MYSQL_PORT");
   private String mysql_database_name = System.getenv("MYSQL_DATABASE_NAME");
   private String mysql_url = "jdbc:mysql://localhost:" + mysql_port + "/" + mysql_database_name; 
-  
+
   private String DB_USER = System.getenv("DB_USER");
   private String DB_PASSWORD = System.getenv("DB_PASSWORD");
-
   
   private Database_instance() throws SQLException{
     try{

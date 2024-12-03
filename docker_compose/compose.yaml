@@ -1,0 +1,12 @@
+services:
+  mysql_database:
+    image: mysql:latest
+    ports:
+      - "4000:3306"
+    environment:
+      MYSQL_ROOT_USER: ${DB_USER}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+  
+  ubuntu_test_image:
+    build: ../first_test/
+    
