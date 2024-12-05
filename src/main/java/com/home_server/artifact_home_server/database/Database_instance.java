@@ -1,4 +1,4 @@
-package com.home_server.artifact_home_server;
+package com.home_server.artifact_home_server.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
