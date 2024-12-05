@@ -1,9 +1,7 @@
 package com.home_server.artifact_home_server.database;
 
-import java.sql.SQLException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.List;
 import java.util.ArrayList;
 
 
@@ -18,12 +16,9 @@ public class Listings {
     this.connection = database.getConnection();
   }
 
-  public getDatabase() throws SQLException{
-    return instance = Database_instance.getInstance();
-  }
-
-  public List<item> getAllItems() throws SQLException{
-    List<item> = new ArrayList();
+  public List<Item> getAllItems() throws SQLException{
+    List<Item> listing = new ArrayList<>();
     String query = "SELECT * FROM " + listings_table;
+    return null;
   }
 }

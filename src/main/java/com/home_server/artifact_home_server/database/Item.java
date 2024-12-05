@@ -1,6 +1,7 @@
 package com.home_server.artifact_home_server.database;
 
 import java.util.List;
+import java.sql.*;
 
 public class Item{
   private int Id;
@@ -8,10 +9,10 @@ public class Item{
   private String Cathegory;
   private String SubCathegory;
   private String Description;
-  private List<Strings> images;
- 
+  private List<String> images;
+  private Item_image image_loader; 
 
-  Items(int id, String name, String cathegory, String subcathegory, String description){
+  public Item(int id, String name, String cathegory, String subcathegory, String description) throws SQLException{
     this.Id = id;
     this.Name = name;
     this.Cathegory = cathegory;
@@ -22,26 +23,26 @@ public class Item{
   }
 
   public int getIdint(){
-    return id;
+    return Id;
   }
   
   public String getIdStr(){
-    return String.valueOf(id);
+    return String.valueOf(Id);
   }
   
   public String getCathegory(){
-    return cathegory;
+    return Cathegory;
   }
   
   public String getSubCathegory(){
-    return subcathegory;
+    return SubCathegory;
   }
   
   public String getDescription(){
-    return description;
+    return Description;
   }
 
-  public List<Strings> getImages(int id){
-    return image_loader.getImages(id)
+  public List<String> getImages(int id) throws SQLException{
+    return image_loader.getImages(id);
   }
 }
