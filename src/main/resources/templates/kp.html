@@ -12,6 +12,16 @@
     <form action="/kp" method="POST">
         <button type="submit">Load All Advertisments</button>
     </form>
+    <h1>Listings</h1>
+      <ul>
+        <li style="color: white;" th:each="item : ${listings}">
+            <p>ID: <span th:text="${item.id}"></span></p>
+            <p>Name: <span th:text="${item.name}"></span></p>
+            <p>Category: <span th:text="${item.category}"></span></p>
+            <p>Subcategory: <span th:text="${item.subcategory}"></span></p>
+            <p>Description: <span th:text="${item.description}"></span></p>
+        </li>
+      </ul>
 </body>
 </html>
 <!DOCTYPE html>
