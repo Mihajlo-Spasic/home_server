@@ -5,10 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
-import java.sql.SQLException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 import com.home_server.artifact_home_server.database.*;
 import java.util.List;
@@ -43,11 +40,5 @@ public class KP_page{
     return "create";
   }
   
-  @PostMapping
-  public String load_all_kp_listings() {
-        System.out.println("load all listings called!");
-        
-        return "/kp"; 
-    }
  
 }

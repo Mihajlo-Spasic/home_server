@@ -18,3 +18,22 @@ a:hover {
     text-decoration: underline;
 }
 
+.listing-container{
+  width: 100%;
+  padding:20px;
+  background-color:red;
+}
+.listing-container::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.container-child{
+  background-color:orange;
+  float: left;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+
