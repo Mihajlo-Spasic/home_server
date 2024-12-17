@@ -1,51 +1,52 @@
-package home_server.artifact_home_server.formsubmission; 
+package com.home_server.artifact_home_server.formsubmission; 
 
+import java.util.List;
 
 public class Listing{
   
-  private String name
+  private String name;
   private String category;
   private String subcategory;
   private String description;
   private List<String> images;
 
-  public String setName(String name){
-    this.name = name
-  }
+  public void setName(String name){
+    this.name = name;
+  };
   
   public String getName(){
     return name;
-  }
+  };
   
-  public String setCategory(String category){
+  public void setCategory(String category){
     this.category = category;
-  }
+  };
   
   public String getCategory(){
     return category;
-  }
+  };
 
-  public String setSubcategory(String subcategory){
+  public void setSubcategory(String subcategory){
     this.subcategory = subcategory;
-  }
+  };
 
   public String getSubcategory(){
     return subcategory;
-  }
+  };
 
-  public String setDescription(String description){
-    this.description = decription;
-  }
+  public void setDescription(String description){
+    this.description = description;
+  };
 
   public String getDescription(){
     return description;
-  }
+  };
 
-  public List<String> setImages(List<String> images){
-    return this.images;
-  }
+  public void setImages(List<String> images){
+    this.images = images;
+  };
 
   public List<String> getImages(){
-  return images;
-  }
+    return images;
+  };
 }

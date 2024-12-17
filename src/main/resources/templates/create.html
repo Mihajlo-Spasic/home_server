@@ -1,19 +1,19 @@
 <h1>hello from kp/create </h1>
 <form action=# th:action="@{/create}" th:object="${listing}" method="POST">
   <label for="name">Listing Name:</label>
-  <input type="text" id="name" name="name"><br><br>
+  <input type="text" id="name" name="name" th:field="*{name}"><br><br>
   
   <label for="category">Category:</label>
-  <input type="text" id="category" name="category"><br><br>
+  <input type="text" id="category" name="category" th:field="*{category}"><br><br>
   
   <label for="subcategory">SubCategory:</label>
-  <input type="text" id="subcategory" name="subcategory"><br><br>
+  <input type="text" id="subcategory" name="subcategory" th:field="*{subcategory}"><br><br>
   
   <label for="description">Description:</label><br>
-  <textarea id="description" name="description"></textarea>
+  <textarea id="description" name="description" th:field="*{description}"></textarea>
   
   <label for="images">Select Images:</label>
-  <input type="file" id="images" name="images" accept="image/*" multiple>
+  <input type="file" id="images" name="images" accept="image/*" th:field="*{images}" multiple>
   
   <input type="submit" value="Submit">
   <input type="submit" value="Reset">

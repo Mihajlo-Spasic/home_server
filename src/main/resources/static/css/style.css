@@ -21,7 +21,7 @@ a:hover {
 .listing-container{
   width: 100%;
   padding:20px;
-  background-color:red;
+  background-color:black;
 }
 .listing-container::after {
     content: "";
