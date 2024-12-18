@@ -1,15 +1,13 @@
 package com.home_server.artifact_home_server.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
+import java.sql.*;
 
 public class Database_instance {
   
   private static Database_instance instance;
   private Connection connection;
-  
+  private Statement statement;
+
   private String mysql_port = System.getenv("MYSQL_PORT");
   private String mysql_database_name = System.getenv("MYSQL_DATABASE_NAME");
   private String mysql_url = "jdbc:mysql://localhost:" + mysql_port + "/" + mysql_database_name; 
@@ -38,5 +36,8 @@ public class Database_instance {
   public Connection getConnection(){
     return connection;
   }
-    
+
+  public Statement getStatement(){
+    return statemenet;
+  } 
 }
