@@ -37,7 +37,4 @@ public class Database_instance {
     return connection;
   }
 
-  public Statement getStatement(){
-    return statemenet;
-  } 
 }

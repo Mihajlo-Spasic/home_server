@@ -4,11 +4,11 @@ import java.util.List;
 
 public class Listing{
   
-  private String name;
-  private String category;
-  private String subcategory;
-  private String description;
-  private List<String> images;
+  public String name;
+  public String category;
+  public String subcategory;
+  public String description;
+  public List<String> images;
 
   public void setName(String name){
     this.name = name;

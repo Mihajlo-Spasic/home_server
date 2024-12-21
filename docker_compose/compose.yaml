@@ -6,4 +6,8 @@ services:
     environment:
       MYSQL_ROOT_USER: ${DB_USER}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-    
+    volumes:
+      - db_data:/var/lib/mysql/data
+
+volumes:
+  db_data:

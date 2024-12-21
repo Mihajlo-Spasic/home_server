@@ -20,6 +20,7 @@ public class KP_page{
   public Connection connection;
   public Statement statement;
   public ResultSet resultSet;
+
   {
     try{
       database = Database_instance.getInstance();
