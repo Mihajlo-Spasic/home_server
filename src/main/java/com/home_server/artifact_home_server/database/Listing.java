@@ -28,6 +28,8 @@ public class Listing {
                            resultSet.getString("category"),
                            resultSet.getString("subcategory"),
                            resultSet.getString("description"));
+                           resultSet.getInt("price");
+                           resultSet.getString("currency");
       listing.add(item);
     }
     return listing;

@@ -1,20 +1,99 @@
-<h1>hello from kp/create </h1>
-<form action=# th:action="@{/create}" th:object="${listing}" method="POST">
-  <label for="name">Listing Name:</label>
-  <input type="text" id="name" name="name" th:field="*{name}"><br><br>
-  
-  <label for="category">Category:</label>
-  <input type="text" id="category" name="category" th:field="*{category}"><br><br>
-  
-  <label for="subcategory">SubCategory:</label>
-  <input type="text" id="subcategory" name="subcategory" th:field="*{subcategory}"><br><br>
-  
-  <label for="description">Description:</label><br>
-  <textarea id="description" name="description" th:field="*{description}"></textarea>
-  
-  <label for="images">Select Images:</label>
-  <input type="file" id="images" name="images" accept="image/*" th:field="*{images}" multiple>
-  
-  <input type="submit" value="Submit">
-  <input type="submit" value="Reset">
-</form>  
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Form Centered</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    form {
+      width: 300px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    input[type="file"] {
+      margin-bottom: 15px;
+    }
+
+    input[type="radio"] {
+      margin-right: 5px;
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+      padding: 10px 15px;
+      margin-right: 10px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    input[type="reset"] {
+      background-color: #6c757d;
+    }
+
+    input[type="submit"]:hover,
+    input[type="reset"]:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <form action="#" th:action="@{/create}" th:object="${listing}" method="POST">
+    <label for="name">Listing Name:</label>
+    <input type="text" id="name" name="name" th:field="*{name}">
+    
+    <label for="category">Category:</label>
+    <input type="text" id="category" name="category" th:field="*{category}">
+    
+    <label for="subcategory">SubCategory:</label>
+    <input type="text" id="subcategory" name="subcategory" th:field="*{subcategory}">
+    
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" th:field="*{description}"></textarea>
+    
+    <label for="images">Select Images:</label>
+    <input type="file" id="images" name="images" accept="image/*" th:field="*{images}" multiple>
+    
+    <label for="price">Price:</label>
+    <input type="text" id="price" name="price" th:field="*{price}">
+    
+    <label>Currency:</label>
+    <input type="radio" id="currencyRSD" name="currency" value="RSD" th:field="*{currency}">
+    <label for="currencyRSD">RSD</label>
+    <input type="radio" id="currencyUSD" name="currency" value="USD" th:field="*{currency}">
+    <label for="currencyUSD">USD</label>
+    
+    <input type="submit" value="Submit">
+    <input type="reset" value="Reset">
+  </form>
+</body>
+</html>
+

@@ -31,17 +31,28 @@ public class createListing{
     database = Database_instance.getInstance();
     connection = database.getConnection();
     statement = connection.createStatement();
-    create_query_for_list(new_listing.name,new_listing.category,new_listing.subcategory,new_listing.description);
+    create_query_for_list(new_listing.name,new_listing.category,new_listing.subcategory,new_listing.description, new_listing.price, new_listing.currency);
 
     return "redirect:/kp";
   }
   
-  private void create_query_for_list(String name, String category, String subcategory, String description) throws SQLException{
+  private void create_query_for_list(String name, String category, String subcategory, String description, int price, String currency) throws SQLException{
     
+
     // make correction for category & subcategory if they are wrong
- String query = "INSERT INTO " + System.getenv("DB_TABLE_KP") + 
-        " (name, category, subcategory, description) VALUES ('" + name + "', '" + category + "', '" + subcategory + "', '" + description + "');";
-    int result = statement.executeUpdate(query);
-     
+     String query = "INSERT INTO " + System.getenv("DB_TABLE_KP") + 
+               " (name, category, subcategory, description, price, currency) VALUES (?, ?, ?, ?, ?, ?)";
+    try (PreparedStatement stmt = connection.prepareStatement(query)) {
+      stmt.setString(1, name);
+      stmt.setString(2, category);
+      stmt.setString(3, subcategory);
+      stmt.setString(4, description);
+      stmt.setString(5, Integer.toString(price));
+      stmt.setString(6, currency);
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+    e.printStackTrace();
+    // Handle SQL exception appropriately
+    }
   }
 }

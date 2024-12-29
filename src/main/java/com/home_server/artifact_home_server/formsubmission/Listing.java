@@ -8,8 +8,10 @@ public class Listing{
   public String category;
   public String subcategory;
   public String description;
+  public String currency;
   public List<String> images;
-
+  public int price; 
+  
   public void setName(String name){
     this.name = name;
   };
@@ -49,4 +51,20 @@ public class Listing{
   public List<String> getImages(){
     return images;
   };
+  
+  public void setPrice(int price){
+    this.price = price;
+  }
+  
+  public int getPrice(){
+    return price;
+  }
+
+  public void setCurrency(String currency){
+    this.currency = currency;
+  }
+  
+  public String getCurrency(){
+    return currency;
+  }
 }

@@ -11,6 +11,8 @@ public class Item{
   private String description;
   private List<String> images;
   private Item_image image_loader; 
+  private int price;
+  private String currency;
 
   public Item(int id, String name, String category, String subcategory, String description) throws SQLException{
     this.id = id;
@@ -20,6 +22,8 @@ public class Item{
     this.description = description;
     this.image_loader = new Item_image(id);
     this.images = getImages(id);
+    this.price = price;
+    this.currency = currency;
   }
 
    public int getId() {
@@ -43,5 +47,11 @@ public class Item{
     }
   public List<String> getImages(int id) throws SQLException{
     return image_loader.getImages(id);
+  }
+  public String getCurrency() {
+    return currency;
+  }
+  public int getPrice() {
+    return price;
   }
 }

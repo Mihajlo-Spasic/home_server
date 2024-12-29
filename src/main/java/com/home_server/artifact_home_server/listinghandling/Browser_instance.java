@@ -9,9 +9,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.facebook_auth_selenium.Facebook_auth;
-import com.home_server.artifact_home_server.database.Database_Instance;
+import com.home_server.artifact_home_server.database.Database_instance;
 import java.time.Duration;
-
+import java.util.List;
+import java.util.ArrayList;
+import java.sql.*;
 // Browser Instance for KUPUJEMPRODAJEM listings
 // Singleton pattern 
 public class Browser_instance{ 
@@ -27,22 +29,27 @@ public class Browser_instance{
 
   private static boolean set_gecko_location = false;
   private static Browser_instance instance;
-  private static Database_Instance database;
-  private Browser_instance(){   
+  private static Database_instance database;
+
+  private Browser_instance() throws SQLException{   
     if (!set_gecko_location){
       System.setProperty("webdriver.gecko.driver", "/usr/bin/geckodriver");
       set_gecko_location = true;
     }
     this.options = new FirefoxOptions();
     this.driver = new FirefoxDriver(options);
-    this.database = Database_Instance.getInstance();
+    this.database = Database_instance.getInstance();
+  }
+  
+  public WebDriver getDriver(){
+    return driver;
   }
 
-  public static WebDriver getInstance(){
+  public static Browser_instance getInstance() throws SQLException{
     if (instance == null){
       instance = new Browser_instance();
     } 
-    return driver;
+    return instance;
   }
 
   public static void onError(){
@@ -53,27 +60,38 @@ public class Browser_instance{
   //Method checks if user is still logged to the platform kupujemprodajem
   public static boolean checkConnectability(WebDriver driver){
     try{
-      WebElement button = driver.findElement(By.class(connectability_class));
-      if (button.getAttribute("name").matches(System.getenv("facebook_email"))) 
+      WebElement button = driver.findElement(By.className(connectability_class));
+      if (button.getAttribute("name").matches(System.getenv("facebook_email"))){ 
         return true;
-    }
-    return false 
+      }
+      
+    }catch(Exception e){
+      e.printStackTrace();
+     }
+    return false; 
   } 
   
   //Complete Template for listsing automatization
-  public void createListingTemplate(String list_name){
+  public static void createListingTemplate(String list_name, List<String> images){
+    
+
+    //test remove later
+    Facebook_auth fb = new Facebook_auth(driver, listing_url);
+    fb.load_credentials_env();
+    fb.execute_auth();
+
     driver.get(add_listing_url);
 
     WebDriverWait waitPageLoad = new WebDriverWait(driver, Duration.ofSeconds(10));
-    WebElement wait = waitPageLoad.until(ExpectedConditions.elementToBeClickable(By.class("Input_inputRow__YMC5T Input_label__JhaZY")));
-    WebElement name_label = driver.findElement(By.class("Input_inputRow__YMC5T Input_label__JhaZY"));
-    driver.sendKeys(list_name);
-    WebElement searchButtonName = driver.findElement(By.class("Button_base__G3HTK Button_big__vkHxv ButtonPrimaryBlue_primaryBlue__OjE4b"));
+    WebElement wait = waitPageLoad.until(ExpectedConditions.elementToBeClickable(By.id("groupSuggestInputText")));
+    WebElement name_label = driver.findElement(By.id("groupSuggestInputText"));
+    name_label.sendKeys(list_name);
+    WebElement searchButtonName = driver.findElement(By.className("ButtonPrimaryBlue_primaryBlue__OjE4b"));
     searchButtonName.click();
-    Thread.sleep(5000);
     try {
+      Thread.sleep(5000);
       WebElement section = driver.findElement(By.className("AdSaveStepOne_suggestionList__NW_Yc"));
-      List<WebElement> buttons = section.findElements(By.tagName("button"));
+      List<WebElement> buttons = section.findElements(By.className("AdSaveStepOne_suggestionItem__zbMRN"));
       for (WebElement button : buttons) {
         button.click();
         Thread.sleep(10000);
@@ -83,9 +101,20 @@ public class Browser_instance{
     } catch (Exception e) {
         e.printStackTrace();
       }
-    
+      WebElement imageAttachmentButton = driver.findElement(By.className("AdSaveUploadImage_dropzoneContent__UUr19"));
+      String listOfImagesFormated = ""; 
+      for (String image : images){
+        listOfImagesFormated = image+"\n";
+      }    
+        imageAttachmentButton.sendKeys(listOfImagesFormated);
   }
-
+  public static void testMethod(){
+    List<String> images = new ArrayList<String>();
+    images.add("path1.png");
+    images.add("path2.png");
+    System.out.println("HELLO WORKING OR NOT");
+    createListingTemplate("televizor",images);
+  }
 
   //Set of methods for CRUD of listings managed by database
   public static void addListingFromDB(){}

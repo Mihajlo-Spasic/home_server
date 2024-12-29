@@ -15,8 +15,9 @@ public class ArtifactHomeServerApplication {
 		SpringApplication.run(ArtifactHomeServerApplication.class, args);
     
     // Loading all the heavy code at the start 
-    Database_instance database = Database_instance.getInstance(); 
-    WebDriver browser = Browser_instance.getInstance();
+    //Database_instance database = Database_instance.getInstance(); 
+//    Browser_instance browser = Browser_instance.getInstance();
+  //  browser.testMethod();
 	}
 
 }
