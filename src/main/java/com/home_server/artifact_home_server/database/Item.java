@@ -14,7 +14,7 @@ public class Item{
   private int price;
   private String currency;
 
-  public Item(int id, String name, String category, String subcategory, String description) throws SQLException{
+  public Item(int id, String name, String category, String subcategory, String description, int price, String currency) throws SQLException{
     this.id = id;
     this.name = name;
     this.category = category;
@@ -45,13 +45,16 @@ public class Item{
     public String getDescription() {
         return description;
     }
-  public List<String> getImages(int id) throws SQLException{
-    return image_loader.getImages(id);
-  }
-  public String getCurrency() {
-    return currency;
-  }
-  public int getPrice() {
-    return price;
-  }
+    
+    public List<String> getImages(int id) throws SQLException{
+      return image_loader.getImages(id);
+    }
+    
+    public String getCurrency() {
+      return currency;
+    }
+  
+    public int getPrice() {
+      return price;
+    }
 }

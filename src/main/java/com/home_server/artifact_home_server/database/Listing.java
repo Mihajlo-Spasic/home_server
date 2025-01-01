@@ -27,9 +27,9 @@ public class Listing {
                            resultSet.getString("name"),
                            resultSet.getString("category"),
                            resultSet.getString("subcategory"),
-                           resultSet.getString("description"));
-                           resultSet.getInt("price");
-                           resultSet.getString("currency");
+                           resultSet.getString("description"),
+                           resultSet.getInt("price"),
+                           resultSet.getString("currency"));
       listing.add(item);
     }
     return listing;

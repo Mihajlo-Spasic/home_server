@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.JavascriptExecutor;
 import com.facebook_auth_selenium.Facebook_auth;
 import com.home_server.artifact_home_server.database.Database_instance;
 import java.time.Duration;
@@ -72,7 +73,7 @@ public class Browser_instance{
   } 
   
   //Complete Template for listsing automatization
-  public static void createListingTemplate(String list_name, List<String> images){
+  public static void createListingTemplate(String list_name, List<String> images, int price, String description, String currency){
     
 
     //test remove later
@@ -101,18 +102,24 @@ public class Browser_instance{
     } catch (Exception e) {
         e.printStackTrace();
       }
-      WebElement imageAttachmentButton = driver.findElement(By.className("AdSaveUploadImage_dropzoneContent__UUr19"));
-      String listOfImagesFormated = ""; 
+
+      //For the creators of selenium I can not select pictures to attach holy  
+      WebElement imageAttachmentButton; 
       for (String image : images){
-        listOfImagesFormated = image+"\n";
-      }    
-        imageAttachmentButton.sendKeys(listOfImagesFormated);
+        imageAttachmentButton = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div/form/div[2]/div/div[2]/div/section/section[1]/div[2]/section[2]/div/div/div/div/input"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", imageAttachmentButton);
+        imageAttachmentButton.sendKeys(image);
+      }   
+
+      WebElement price_input = driver.findElement
+
+
   }
   public static void testMethod(){
     List<String> images = new ArrayList<String>();
-    images.add("path1.png");
-    images.add("path2.png");
-    System.out.println("HELLO WORKING OR NOT");
+    images.add("/home/spale/testimg/path1.jpg");
+    images.add("/home/spale/testimg/path2.jpg");
+
     createListingTemplate("televizor",images);
   }
 
