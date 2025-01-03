@@ -16,11 +16,13 @@ public class Item_image{
     database = Database_instance.getInstance();    
     connection = database.getConnection();
   }
+
   public Item_image(int id) throws SQLException{
     this.Id = id;
     database = Database_instance.getInstance();    
     connection = database.getConnection();
   }
+
   public List<String> getImages() throws SQLException{
     if (Id == 0){
       Image_path.clear();
@@ -33,7 +35,7 @@ public class Item_image{
       }
       return Image_path;
     }
-    System.err.println("ID NEEDED FOR QUERY [ERROR IN FILE Item_image]");
+
     return null;
   }  
   

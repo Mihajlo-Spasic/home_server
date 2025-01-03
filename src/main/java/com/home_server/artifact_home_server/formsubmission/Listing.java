@@ -10,8 +10,8 @@ public class Listing{
   public String subcategory;
   public String description;
   public String currency;
-  public List<String> images;
-  public List<MultipartFile> imagesMP;
+//  public List<String> images;
+  public List<MultipartFile> imageFiles;
   public int price; 
   
   public void setName(String name){
@@ -46,15 +46,16 @@ public class Listing{
     return description;
   };
 
+  /*
   public void setImages(List<String> images){
     this.images = images;
   };
-
+   
   public List<String> getImages(){
     return images;
   };
-  
-  public void setPrice(int price){
+  */
+    public void setPrice(int price){
     this.price = price;
   }
   
@@ -70,11 +71,11 @@ public class Listing{
     return currency;
   }
   
-  public void setImagesMP(List<MultipartFile> imagesMP){
-    this.imagesMP = imagesMP;
+  public void setImageFiles(List<MultipartFile> imageFiles){
+    this.imageFiles = imageFiles;
   }
 
-  public List<MultipartFile> getImagesMP(){
-    return imagesMP;
+  public List<MultipartFile> getImageFiles(){
+    return imageFiles;
   }
 }

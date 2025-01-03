@@ -14,6 +14,8 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Controller
 public class createListing{
@@ -31,35 +33,58 @@ public class createListing{
   } 
 
   //Event triggers on form submission passing the listing object with form data in the "new_listing" variable
-  @PostMapping("/create")
-  public String list_submit( @RequestParam("images") MultipartFile[] image_file, @ModelAttribute Listing new_listing, Model model) throws SQLException, IOException{ 
-    model.addAttribute("listing", new_listing);
-    System.out.println(image_file);
+  @PostMapping(value = "/create", consumes = "multipart/form-data") 
+  public String list_submit( 
+		  //@RequestParam("imageFiles") MultipartFile[] image_file, 
+		  @ModelAttribute Listing new_listing, 
+		  Model model)	 throws SQLException, IOException{ 
 
+
+    model.addAttribute("listing", new_listing);
+
+    
     database = Database_instance.getInstance();
     connection = database.getConnection();
     statement = connection.createStatement();
-    create_query_for_list(new_listing.name,new_listing.category,new_listing.subcategory,new_listing.description, new_listing.price, new_listing.currency, new_listing.images, image_file);
+
+    create_query_for_list(new_listing);
 
     return "redirect:/kp";
   }
-  public void make_directories_for_entries(int item_id){ 
+  
+  //Makes an entry for each image passed in /create form with the id of the latest listing entry/object 
+  public File make_directories_for_entries(int item_id) {
     File dir = new File("images/" + item_id);
-    if (!dir.exists()){
-      dir.mkdir();
+    if (!dir.exists()) {
+        boolean created = dir.mkdirs();  // Use mkdirs to create all necessary parent directories
+        if (created) {
+            System.out.println("Directory created: " + dir.getAbsolutePath());
+        } else {
+            System.out.println("Failed to create directory: " + dir.getAbsolutePath());
+        }
     }
-  } 
+    return dir;
+}
 
-  public void place_image(int item_id, MultipartFile image_file) throws IOException{
-  	String uploadDir = "images/" + String.valueOf(item_id);
-	
-	String file_name = image_file.getOriginalFilename();
-	Path file_path = Paths.get(uploadDir, file_name);
-	image_file.transferTo(file_path.toFile());
-  }
-  //public void populate_directory(int dir_number,  
-  //In /create url creates new database entry for listing and image of the same listing 
-  private void create_query_for_list(String name, String category, String subcategory, String description, int price, String currency, List<String> images, MultipartFile[] image_file_list) throws SQLException, IOException {    // make correction for category & subcategory if they are wrong
+// Method to place the image into the corresponding directory
+public void place_image(int item_id, MultipartFile image_file) throws IOException {
+    File file = make_directories_for_entries(item_id);  // Ensure directory exists
+
+    // Define the full path, including the file name
+    String uploadDir = "images/" + item_id + "/";
+    Path filePath = Paths.get(uploadDir, image_file.getOriginalFilename()); // Append filename
+
+    // Log the file path for debugging
+    System.out.println("Saving image to: " + filePath.toAbsolutePath());
+
+    // Transfer the file to the target path
+    //image_file.transferTo(filePath.toFile());
+    File file_to_save = new File("hello");
+    image_file.transferTo(file_to_save.toPath());
+}
+
+  //In `/create` url creates new database entry for listing and image of the same listing 
+  private void create_query_for_list(Listing listing) throws SQLException, IOException {    // make correction for category & subcategory if they are wrong
      String query = "INSERT INTO " + System.getenv("DB_TABLE_KP") + " (name, category, subcategory, description, price, currency) VALUES (?, ?, ?, ?, ?, ?)";
      String picture_query = "INSERT INTO " + System.getenv("DB_IMAGES_KP") + " (item_id, picture_url) VALUES (?, ?)";
      
@@ -68,12 +93,12 @@ public class createListing{
      try{ 
       PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
       pictureStmt = connection.prepareStatement(picture_query); 
-      preparedStatement.setString(1, name);
-      preparedStatement.setString(2, category);
-      preparedStatement.setString(3, subcategory);
-      preparedStatement.setString(4, description);
-      preparedStatement.setString(5, Integer.toString(price));
-      preparedStatement.setString(6, currency);
+      preparedStatement.setString(1, listing.name);
+      preparedStatement.setString(2, listing.category);
+      preparedStatement.setString(3, listing.subcategory);
+      preparedStatement.setString(4, listing.description);
+      preparedStatement.setString(5, Integer.toString(listing.price));
+      preparedStatement.setString(6, listing.currency);
     
       preparedStatement.executeUpdate();
       
@@ -86,9 +111,23 @@ public class createListing{
         System.err.println("item_id call failed [createListing.java:75]");
         return;
       }
-
-      make_directories_for_entries(item_id);
-      //Makes an entry for each image passed in /create form with the id of the latest listing entry/object 
+      
+      
+      for (MultipartFile imageFile : listing.imageFiles ) {
+	      String fileName = imageFile.getOriginalFilename();
+	      String filePath = "images/" + item_id + "/" + fileName;
+	     
+	      place_image(item_id, imageFile);
+             
+	  //  images.add(filePath);
+             
+	      pictureStmt.setInt(1, item_id);
+              pictureStmt.setString(2, filePath);
+              pictureStmt.executeUpdate();
+              }
+     
+      
+     /* 
       for(String image: images){
 	//populate_directory(item_id, image);
         pictureStmt.setInt(1, item_id);
@@ -99,6 +138,7 @@ public class createListing{
       for (MultipartFile image_f : image_file_list){
 	      place_image(item_id, image_f);
       }
+      */
      } catch (SQLException e) {
     e.printStackTrace();
     }

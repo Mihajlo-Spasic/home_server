@@ -111,7 +111,7 @@ public class Browser_instance{
         imageAttachmentButton.sendKeys(image);
       }   
 
-      WebElement price_input = driver.findElement
+      //WebElement price_input = driver.findElement
 
 
   }
@@ -120,7 +120,7 @@ public class Browser_instance{
     images.add("/home/spale/testimg/path1.jpg");
     images.add("/home/spale/testimg/path2.jpg");
 
-    createListingTemplate("televizor",images);
+    //createListingTemplate("televizor",images);
   }
 
   //Set of methods for CRUD of listings managed by database

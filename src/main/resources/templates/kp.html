@@ -12,6 +12,7 @@
     
     <h1>Listings</h1>
       <ul>
+        <!-- listings are being queried from  -->
           <div style="color: white;" th:each="item : ${listings}">
             <div class="listing-container">
               <div class="container-child">
@@ -23,6 +24,7 @@
                 <p>Category: <span th:text="${item.category}"></span></p>
                 <p>Subcategory: <span th:text="${item.subcategory}"></span></p>
                 <p>Description: <span th:text="${item.description}"></span></p>
+                <p>Price: <span th:text="${item.price}"></span> <span th:text="${item.currency}"></span></p> 
               </div>
             </div>
           </div>
