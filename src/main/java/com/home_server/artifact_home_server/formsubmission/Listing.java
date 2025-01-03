@@ -1,5 +1,6 @@
 package com.home_server.artifact_home_server.formsubmission; 
 
+import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public class Listing{
@@ -10,6 +11,7 @@ public class Listing{
   public String description;
   public String currency;
   public List<String> images;
+  public List<MultipartFile> imagesMP;
   public int price; 
   
   public void setName(String name){
@@ -66,5 +68,13 @@ public class Listing{
   
   public String getCurrency(){
     return currency;
+  }
+  
+  public void setImagesMP(List<MultipartFile> imagesMP){
+    this.imagesMP = imagesMP;
+  }
+
+  public List<MultipartFile> getImagesMP(){
+    return imagesMP;
   }
 }
