@@ -34,12 +34,8 @@ public class createListing{
 
   //Event triggers on form submission passing the listing object with form data in the "new_listing" variable
   @PostMapping(value = "/create", consumes = "multipart/form-data") 
-  public String list_submit( 
-		  //@RequestParam("imageFiles") MultipartFile[] image_file, 
-		  @ModelAttribute Listing new_listing, 
-		  Model model)	 throws SQLException, IOException{ 
-
-
+  public String list_submit( @ModelAttribute Listing new_listing, Model model)	 throws SQLException, IOException{ 
+    
     model.addAttribute("listing", new_listing);
 
     
@@ -53,34 +49,21 @@ public class createListing{
   }
   
   //Makes an entry for each image passed in /create form with the id of the latest listing entry/object 
-  public File make_directories_for_entries(int item_id) {
+  public void make_directories_for_entries(int item_id) {
     File dir = new File("images/" + item_id);
     if (!dir.exists()) {
-        boolean created = dir.mkdirs();  // Use mkdirs to create all necessary parent directories
-        if (created) {
-            System.out.println("Directory created: " + dir.getAbsolutePath());
-        } else {
-            System.out.println("Failed to create directory: " + dir.getAbsolutePath());
+        dir.mkdirs(); 
         }
-    }
-    return dir;
 }
 
 // Method to place the image into the corresponding directory
 public void place_image(int item_id, MultipartFile image_file) throws IOException {
-    File file = make_directories_for_entries(item_id);  // Ensure directory exists
+    make_directories_for_entries(item_id);  
 
-    // Define the full path, including the file name
     String uploadDir = "images/" + item_id + "/";
-    Path filePath = Paths.get(uploadDir, image_file.getOriginalFilename()); // Append filename
-
-    // Log the file path for debugging
-    System.out.println("Saving image to: " + filePath.toAbsolutePath());
-
-    // Transfer the file to the target path
-    //image_file.transferTo(filePath.toFile());
-    File file_to_save = new File("hello");
-    image_file.transferTo(file_to_save.toPath());
+    
+    Path filePath = Paths.get(uploadDir, image_file.getOriginalFilename()); 
+    image_file.transferTo(filePath);
 }
 
   //In `/create` url creates new database entry for listing and image of the same listing 
