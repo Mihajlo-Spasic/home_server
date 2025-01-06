@@ -1,81 +1,81 @@
-package com.home_server.artifact_home_server.formsubmission; 
+package com.home_server.artifact_home_server.formsubmission;
 
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
-public class Listing{
-  
+public class Listing {
+
   public String name;
   public String category;
   public String subcategory;
   public String description;
   public String currency;
-//  public List<String> images;
+  // public List<String> images;
   public List<MultipartFile> imageFiles;
-  public int price; 
-  
-  public void setName(String name){
+  public int price;
+
+  public void setName(String name) {
     this.name = name;
   };
-  
-  public String getName(){
+
+  public String getName() {
     return name;
   };
-  
-  public void setCategory(String category){
+
+  public void setCategory(String category) {
     this.category = category;
   };
-  
-  public String getCategory(){
+
+  public String getCategory() {
     return category;
   };
 
-  public void setSubcategory(String subcategory){
+  public void setSubcategory(String subcategory) {
     this.subcategory = subcategory;
   };
 
-  public String getSubcategory(){
+  public String getSubcategory() {
     return subcategory;
   };
 
-  public void setDescription(String description){
+  public void setDescription(String description) {
     this.description = description;
   };
 
-  public String getDescription(){
+  public String getDescription() {
     return description;
   };
 
   /*
-  public void setImages(List<String> images){
-    this.images = images;
-  };
-   
-  public List<String> getImages(){
-    return images;
-  };
-  */
-    public void setPrice(int price){
+   * public void setImages(List<String> images){
+   * this.images = images;
+   * };
+   * 
+   * public List<String> getImages(){
+   * return images;
+   * };
+   */
+  public void setPrice(int price) {
     this.price = price;
   }
-  
-  public int getPrice(){
+
+  public int getPrice() {
     return price;
   }
 
-  public void setCurrency(String currency){
+  public void setCurrency(String currency) {
     this.currency = currency;
   }
-  
-  public String getCurrency(){
+
+  public String getCurrency() {
     return currency;
   }
-  
-  public void setImageFiles(List<MultipartFile> imageFiles){
+
+  public void setImageFiles(List<MultipartFile> imageFiles) {
     this.imageFiles = imageFiles;
   }
 
-  public List<MultipartFile> getImageFiles(){
+  public List<MultipartFile> getImageFiles() {
     return imageFiles;
   }
 }
