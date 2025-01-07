@@ -108,6 +108,8 @@ public class createListing {
         pictureStmt.executeUpdate();
 
       }
+
+      // .kp_check_database();
     } catch (SQLException e) {
       e.printStackTrace();
     }

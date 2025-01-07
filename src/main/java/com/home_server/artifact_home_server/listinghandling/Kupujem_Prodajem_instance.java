@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -13,7 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.openqa.selenium.NoSuchElementException;
 import com.facebook_auth_selenium.Facebook_auth;
 import com.home_server.artifact_home_server.database.Database_instance;
 
@@ -74,8 +73,12 @@ public class Kupujem_Prodajem_instance {
     return false;
   }
 
+  public List<String> getAllListingNames() {
+    return null;
+  }
+
   // Complete Template for listsing automatization
-  public static void createListingTemplate(String list_name, List<String> images, int price, String description,
+  public void createListingTemplate(String list_name, List<String> images, int price, String description,
       String currency) {
 
     // test remove later
@@ -136,8 +139,12 @@ public class Kupujem_Prodajem_instance {
     editorBody.sendKeys(description);
 
     driver.switchTo().defaultContent();
-    // NEW(UNUSED)
-    // driver.findElement(By.className("RadioButtonAdvanced_box__Yw8Bj")).click();
+    try {
+      // NEW(UNUSED)
+      driver.findElement(By.className("RadioButtonAdvanced_box__Yw8Bj")).click();
+    } catch (NoSuchElementException e) {
+
+    }
     driver.findElement(By.cssSelector("button[aria-label='Sledeće']")).click();
     WebDriverWait thirdPage = new WebDriverWait(driver, Duration.ofSeconds(10));
     thirdPage
@@ -157,7 +164,7 @@ public class Kupujem_Prodajem_instance {
     driver.findElement(By.xpath("//span[text()='Postavite oglas']")).click();
   }
 
-  public static void testMethod() {
+  public void testMethod() {
     List<String> images = new ArrayList<String>();
     images.add("/home/spale/testimg/path1.jpg");
     images.add("/home/spale/testimg/path2.jpg");
@@ -183,4 +190,5 @@ public class Kupujem_Prodajem_instance {
 
   public static void removeListingFromDB(int item_id) {
   }
+
 }
