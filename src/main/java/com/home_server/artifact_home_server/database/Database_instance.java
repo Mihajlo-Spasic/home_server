@@ -39,8 +39,18 @@ public class Database_instance {
     return connection;
   }
 
-  public ArrayList<String> getAllListingNames() {
-    List<String> item_list = new ArrayList<String>();
+  public List<String> getAllListingNames() throws SQLException {
+    String all_item_query = "SELECT name FROM " + System.getenv("DB_TABLE_KP");
+
+    Statement statement = connection.createStatement();
+    ResultSet resultSet = statement.executeQuery(all_item_query);
+
+    List<String> item_list = new ArrayList<>();
+
+    while (resultSet.next()) {
+      item_list.add(resultSet.getString("name"));
+    }
+
     return item_list;
   }
 

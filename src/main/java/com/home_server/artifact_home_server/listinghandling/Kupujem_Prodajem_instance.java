@@ -4,15 +4,17 @@ import java.sql.SQLException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.NoSuchElementException;
+
 import com.facebook_auth_selenium.Facebook_auth;
 import com.home_server.artifact_home_server.database.Database_instance;
 
@@ -74,7 +76,13 @@ public class Kupujem_Prodajem_instance {
   }
 
   public List<String> getAllListingNames() {
-    return null;
+    driver.get(listing_url);
+    List<String> all_listing_names = new ArrayList<>();
+    List<WebElement> all_name_elements = driver.findElements(By.className("AdItem_name__Knlo6"));
+    for (WebElement listing : all_name_elements) {
+      all_listing_names.add(listing.getText());
+    }
+    return all_listing_names;
   }
 
   // Complete Template for listsing automatization
@@ -162,6 +170,14 @@ public class Kupujem_Prodajem_instance {
       checkbox.click();
     }
     driver.findElement(By.xpath("//span[text()='Postavite oglas']")).click();
+
+    try {
+      WebDriverWait base = new WebDriverWait(driver, Duration.ofSeconds(10));
+      base
+          .until(ExpectedConditions.visibilityOfElementLocated(By.className("Modal_closeIcon__CJuTW"))).click();
+    } catch (NoSuchElementException e) {
+
+    }
   }
 
   public void testMethod() {

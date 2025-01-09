@@ -1,17 +1,24 @@
 package com.home_server.artifact_home_server.formsubmission;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
-import com.home_server.artifact_home_server.database.*;
-import java.sql.*;
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.io.IOException;
+
+import com.home_server.artifact_home_server.database.Database_instance;
+import com.home_server.artifact_home_server.database.database_kp_logic;
 
 @Controller
 public class createListing {
@@ -74,10 +81,12 @@ public class createListing {
     String picture_query = "INSERT INTO " + System.getenv("DB_IMAGES_KP") + " (item_id, picture_url) VALUES (?, ?)";
 
     PreparedStatement pictureStmt;
+    PreparedStatement preparedStatement;
 
     try {
-      PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+      preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
       pictureStmt = connection.prepareStatement(picture_query);
+
       preparedStatement.setString(1, listing.name);
       preparedStatement.setString(2, listing.category);
       preparedStatement.setString(3, listing.subcategory);
@@ -99,7 +108,7 @@ public class createListing {
 
       for (MultipartFile imageFile : listing.imageFiles) {
         String fileName = imageFile.getOriginalFilename();
-        String filePath = "images/" + item_id + "/" + fileName;
+        String filePath = "/images/" + item_id + "/" + fileName;
 
         place_image(item_id, imageFile);
 
@@ -108,8 +117,9 @@ public class createListing {
         pictureStmt.executeUpdate();
 
       }
+      database_kp_logic db_kp = new database_kp_logic();
+      db_kp.kp_check_database_and_make_kp_listing();
 
-      // .kp_check_database();
     } catch (SQLException e) {
       e.printStackTrace();
     }
