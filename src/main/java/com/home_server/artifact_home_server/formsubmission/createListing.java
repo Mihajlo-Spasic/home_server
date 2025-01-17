@@ -117,8 +117,8 @@ public class createListing {
         pictureStmt.executeUpdate();
 
       }
-      database_kp_logic db_kp = new database_kp_logic();
-      db_kp.kp_check_database_and_make_kp_listing();
+      // database_kp_logic db_kp = new database_kp_logic();
+      // db_kp.kp_check_database_and_make_kp_listing();
 
     } catch (SQLException e) {
       e.printStackTrace();
